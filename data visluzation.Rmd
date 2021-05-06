@@ -1,0 +1,26 @@
+---
+title: "data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+dataa<-data("iris")
+library (ggplot2)
+iris$Sepal.Length
+iris$Sepal.Width
+iris$Species
+unique(iris$Species)
+iris$Petal.Width[(which(iris$Petal.Width<1))]<-"Iris petal width below 1"
+those<-c("1.4","1.5" ,"1.3"  , "1.6"  ,  "1.1"  ,  "1.8"  ,"1.2"  , "1.7" , "2.5"  , "1.9", "2.1" ,"2.2" , "2","2.4", "2.3" )
+iris$Petal.Width[(which(iris$Petal.Width %in% those))]<-"Iris petal width above 1"
+iris$Petal.Width[(which(iris$Petal.Width == "1"))]<-"Iris petal width equal 1"
+
+iris$Petal.Length[(which(iris$Petal.Length<3))]<-"Iris petal length below 3"
+unique(iris$Petal.Length)
+those<-c("4.7",      "4.5"  , "4.9"  ,"4" , "4.6"  , "3.3"  ,"3.9"  ,  "3.5"   , "4.2", "3.6"   ,"4.4"  ,  "4.1" ,  "4.8" ,   "4.3"   , "5","3.8"         ,"3.7","5.1"  ,"6"              ,    "5.9"                ,      "5.6"              ,       "5.8"             ,         "6.6"       ,"6.3"  ,  "6.1", "5.3"   , "5.5"  ,"6.7" , "6.9" , "5.7" ,  "6.4"  , "5.4"  ,"5.2" ,"3"       )
+iris$Petal.Length[(which(iris$Petal.Length %in% those))]<-"Iris petal length equal/above 3"
+
+
+ggplot(iris, aes(x=as.numeric(`Sepal.Length`),y=as.numeric(`Sepal.Width`),color = `Species`))+geom_point(alpha=0.75,size=1.75)+labs(x="Sepal length(cm)")+labs(y="Sepal width(cm)",size=2)+ggtitle("Iris sepal Length vs. Iris sepal Width")+ labs(color = "Iris species")+scale_colour_manual(values =c("orange",4,"purple"))+
+  theme(legend.key.size = unit(0.9, 'cm'))+theme(axis.title.x = element_text(size = 11.5),axis.title.y = element_text(size = 11.5),axis.text.x = element_text(size = 10.5,colour="black"),axis.text.y = element_text(size = 10.5,colour="black"))+scale_x_continuous( breaks=c(4,5,6,7,8))+facet_grid(Petal.Length~Petal.Width)
+```
